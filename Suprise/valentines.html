@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💘</title>
+
+<style>
+  /* 🌈 Animated gradient background */
+  body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3, #ffd166, #06d6a0, #4d96ff);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  @keyframes gradientShift {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
+
+  /* 🎈 Card style */
+  .card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    z-index: 2;
+    animation: cardBounce 1s ease;
+  }
+
+  @keyframes cardBounce {
+    0% {transform: scale(0);}
+    60% {transform: scale(1.1);}
+    100% {transform: scale(1);}
+  }
+
+  h1 {
+    color: #ff4d6d;
+  }
+
+  /* 💖 Buttons */
+  button {
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 15px;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    transform: scale(1.1) rotate(-3deg);
+    box-shadow: 0 8px 20px rgba(255, 77, 109, 0.5);
+  }
+
+  #yes {
+    background: #ff4d6d;
+    color: white;
+  }
+
+  #no {
+    background: #ddd;
+    position: absolute;
+  }
+
+  /* 🎉 Confetti */
+  .confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: fall 3s linear forwards;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  /* ❤️ Hearts floating in the background */
+  .heart {
+    position: fixed;
+    font-size: 20px;
+    top: -50px;
+    pointer-events: none;
+    animation: heartFall 5s linear forwards;
+  }
+
+  @keyframes heartFall {
+    to {
+      transform: translateY(110vh);
+      opacity: 0;
+    }
+  }
+
+  img {
+    width: 250px;
+    border-radius: 20px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- Optional background music -->
+<audio autoplay loop>
+  <source src="cute-music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="card">
+  <h1>Will you be my Valentine? 💖</h1>
+  <button id="yes" onclick="yesClicked()">Yes 💘</button>
+  <button id="no" onmouseover="moveNo()">No 😢</button>
+</div>
+
+<script>
+  // ❌ No button moves away
+  function moveNo() {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    const noBtn = document.getElementById("no");
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  }
+
+  // ❤️ Hearts floating in the background
+  function createHearts() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = '❤️';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+    heart.style.opacity = Math.random();
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+
+  setInterval(createHearts, 300);
+
+  // 🎉 Yes button clicked
+  function yesClicked() {
+    document.getElementById("card").innerHTML = `
+      <h1>Yay! 💖</h1>
+      <p>You just made Shooky excited! 😌</p>
+      <img src="bt21-shooky.gif" alt="Us">
+    `;
+
+    // Confetti
+    for (let i = 0; i < 100; i++) {
+      createConfetti();
+    }
+  }
+
+  function createConfetti() {
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+
+    const colors = ["#ff4d6d", "#ffd166", "#06d6a0", "#4d96ff"];
+    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+    confetti.style.left = Math.random() * window.innerWidth + "px";
+    confetti.style.animationDuration = Math.random() * 2 + 2 + "s";
+
+    document.body.appendChild(confetti);
+
+    setTimeout(() => confetti.remove(), 3000);
+  }
+</script>
+
+</body>
+</html>
